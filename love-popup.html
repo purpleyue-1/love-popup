@@ -10,29 +10,27 @@
             padding: 0;
             overflow: hidden;
             background: #fff;
-            font-family: "微软雅黑", "黑体", sans-serif;
+            font-family: "SimHei", sans-serif; /* 和你原代码的黑体一致 */
         }
         .popup {
             position: absolute;
-            padding: 8px 12px;
-            border-radius: 8px;
+            padding: 10px;
+            border-radius: 5px;
             color: #333;
             text-align: center;
             animation: fadeOut 10s linear forwards;
             z-index: 9999;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         @keyframes fadeOut {
-            0% { opacity: 1; transform: scale(0.8); }
-            5% { opacity: 1; transform: scale(1); }
-            90% { opacity: 1; transform: scale(1); }
-            100% { opacity: 0; transform: scale(0.8); }
+            0% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { opacity: 0; }
         }
     </style>
 </head>
 <body>
 <script>
-    // 暖心祝福语列表
+    // 完全复刻你的祝福语列表
     const messages = [
         "保持好心情",
         "好好爱自己",
@@ -48,24 +46,29 @@
         "遇见你是我最大的幸运"
     ];
 
-    // 柔和背景色
+    // 完全复刻你的背景色列表
     const bgColors = ["#C3C7CE","#E2D8DB","#E5DCD2","#C2C9C0","#F0EEE9","#D6B9B3"];
-    const popupCount = 500; // 适配手机，减少数量更流畅
-    const generateInterval = 100;
+    
+    // 完全复刻你的参数（仅适配手机调整了位置计算）
+    const POPUP_COUNT = 800; 
+    const GENERATE_INTERVAL = 80;
+    const POPUP_DURATION_MIN = 5000;
+    const POPUP_DURATION_MAX = 10000;
 
-    // 创建单个弹窗
     function createPopup() {
         const popup = document.createElement('div');
         popup.className = 'popup';
-        
-        // 随机选内容和样式
+
+        // 完全复刻随机逻辑
         popup.textContent = messages[Math.floor(Math.random() * messages.length)];
         popup.style.backgroundColor = bgColors[Math.floor(Math.random() * bgColors.length)];
-        popup.style.fontSize = (14 + Math.random() * 4) + 'px';
+        popup.style.fontSize = (12 + Math.random() * 4) + 'px';
 
-        // 适配手机的尺寸和位置
-        const width = 120 + Math.random() * 40;
-        const height = 40 + Math.random() * 15;
+        // 复刻弹窗尺寸（仅适配手机调整位置计算）
+        const width = 190 + Math.random() * 20;
+        const height = 45 + Math.random() * 10;
+        
+        // 适配手机的位置计算（避免超出屏幕）
         const x = Math.random() * (window.innerWidth - width);
         const y = Math.random() * (window.innerHeight - height);
         
@@ -74,18 +77,17 @@
         popup.style.left = x + 'px';
         popup.style.top = y + 'px';
 
-        // 添加到页面
         document.body.appendChild(popup);
 
-        // 随机消失
+        // 完全复刻消失逻辑
         setTimeout(() => {
             popup.remove();
-        }, 4000 + Math.random() * 6000);
+        }, Math.random() * (POPUP_DURATION_MAX - POPUP_DURATION_MIN) + POPUP_DURATION_MIN);
     }
 
-    // 批量生成弹窗
-    for (let i = 0; i < popupCount; i++) {
-        setTimeout(createPopup, i * generateInterval);
+    // 完全复刻批量生成逻辑
+    for (let i = 0; i < POPUP_COUNT; i++) {
+        setTimeout(createPopup, i * GENERATE_INTERVAL);
     }
 </script>
 </body>
