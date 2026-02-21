@@ -3,24 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>暖心祝福</title>
+    <title>love python - 暖心祝福</title>
     <style>
+        /* 页面基础样式 */
         body {
             margin: 0;
             padding: 0;
             overflow: hidden;
-            background: #fff;
-            font-family: "SimHei", sans-serif; /* 和你原代码的黑体一致 */
+            background-color: #ffffff;
+            font-family: "SimHei", "Microsoft YaHei", sans-serif; /* 和原代码黑体一致 */
         }
-        .popup {
+
+        /* 模拟TKinter的独立弹窗样式 */
+        .popup-window {
             position: absolute;
-            padding: 10px;
-            border-radius: 5px;
-            color: #333;
-            text-align: center;
-            animation: fadeOut 10s linear forwards;
+            border: 1px solid #eee; /* 模拟窗口边框 */
+            border-radius: 4px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1); /* 窗口阴影更像桌面弹窗 */
+            overflow: hidden;
             z-index: 9999;
+            /* 模拟窗口标题栏（简化） */
+            padding-top: 18px;
+            box-sizing: border-box;
         }
+
+        /* 模拟窗口标题栏 */
+        .popup-title {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 18px;
+            line-height: 18px;
+            font-size: 12px;
+            text-align: center;
+            color: #333;
+            background-color: #f0f0f0; /* 模拟窗口标题栏底色 */
+        }
+
+        /* 弹窗内容区域 */
+        .popup-content {
+            width: 100%;
+            height: calc(100% - 18px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            box-sizing: border-box;
+            padding: 5px;
+        }
+
+        /* 淡出动画（模拟窗口销毁） */
         @keyframes fadeOut {
             0% { opacity: 1; }
             90% { opacity: 1; }
@@ -30,8 +63,8 @@
 </head>
 <body>
 <script>
-    // 完全复刻你的祝福语列表
-    const messages = [
+    // 1:1复刻原代码的祝福语列表
+    const message = [
         "保持好心情",
         "好好爱自己",
         "期待下一次见面",
@@ -46,48 +79,76 @@
         "遇见你是我最大的幸运"
     ];
 
-    // 完全复刻你的背景色列表
-    const bgColors = ["#C3C7CE","#E2D8DB","#E5DCD2","#C2C9C0","#F0EEE9","#D6B9B3"];
-    
-    // 完全复刻你的参数（仅适配手机调整了位置计算）
-    const POPUP_COUNT = 800; 
-    const GENERATE_INTERVAL = 80;
-    const POPUP_DURATION_MIN = 5000;
-    const POPUP_DURATION_MAX = 10000;
+    // 1:1复刻原代码的背景色列表
+    const bg_colors = ["#C3C7CE","#E2D8DB","#E5DCD2","#C2C9C0","#F0EEE9","#D6B9B3"];
 
-    function createPopup() {
+    // 1:1复刻原代码的配置参数（无任何修改）
+    const POPUP_COUNT = 800; // 总共弹出的窗口数量
+    const GENERATE_INTERVAL = 80; // 每个弹窗生成间隔(毫秒)
+    const POPUP_DURATION_MIN = 5000; // 最短显示时间
+    const POPUP_DURATION_MAX = 10000; // 最长显示时间
+
+    // 复刻create_popup函数（核心逻辑完全一致）
+    function create_popup() {
+        // 随机选择祝福语、背景色、字体大小
+        const msg = random.choice(message);
+        const bg = random.choice(bg_colors);
+        const font_size = random.randint(12, 16);
+
+        // 创建模拟弹窗的容器（对应TKinter的Toplevel）
         const popup = document.createElement('div');
-        popup.className = 'popup';
+        popup.className = 'popup-window';
+        popup.style.backgroundColor = bg; // 窗口内容区背景色
+        popup.style.animation = `fadeOut ${random.randint(POPUP_DURATION_MIN, POPUP_DURATION_MAX)/1000}s linear forwards`;
 
-        // 完全复刻随机逻辑
-        popup.textContent = messages[Math.floor(Math.random() * messages.length)];
-        popup.style.backgroundColor = bgColors[Math.floor(Math.random() * bgColors.length)];
-        popup.style.fontSize = (12 + Math.random() * 4) + 'px';
+        // 创建窗口标题栏（对应TKinter的title）
+        const titleBar = document.createElement('div');
+        titleBar.className = 'popup-title';
+        titleBar.textContent = 'love python';
+        popup.appendChild(titleBar);
 
-        // 复刻弹窗尺寸（仅适配手机调整位置计算）
-        const width = 190 + Math.random() * 20;
-        const height = 45 + Math.random() * 10;
-        
-        // 适配手机的位置计算（避免超出屏幕）
-        const x = Math.random() * (window.innerWidth - width);
-        const y = Math.random() * (window.innerHeight - height);
-        
-        popup.style.width = width + 'px';
-        popup.style.height = height + 'px';
-        popup.style.left = x + 'px';
-        popup.style.top = y + 'px';
+        // 创建内容标签（对应TKinter的Label）
+        const content = document.createElement('div');
+        content.className = 'popup-content';
+        content.textContent = msg;
+        content.style.backgroundColor = bg; // 内容区背景色和窗口一致
+        content.style.fontSize = `${font_size}px`;
+        popup.appendChild(content);
 
+        // 随机设置弹窗大小（和原代码完全一致）
+        const width = random.randint(190, 210);
+        const height = random.randint(45, 55);
+        popup.style.width = `${width}px`;
+        popup.style.height = `${height}px`;
+
+        // 获取屏幕尺寸（模拟原代码的winfo_screenwidth/height）
+        const screen_width = window.innerWidth;
+        const screen_height = window.innerHeight;
+
+        // 随机生成位置（留出50像素边距，和原代码逻辑一致）
+        const x = random.randint(50, screen_width - width - 50);
+        const y = random.randint(50, screen_height - height - 50);
+        popup.style.left = `${x}px`;
+        popup.style.top = `${y}px`;
+
+        // 添加到页面（模拟TKinter的显示）
         document.body.appendChild(popup);
 
-        // 完全复刻消失逻辑
+        // 随机时间后移除弹窗（对应原代码的destroy）
         setTimeout(() => {
             popup.remove();
-        }, Math.random() * (POPUP_DURATION_MAX - POPUP_DURATION_MIN) + POPUP_DURATION_MIN);
+        }, random.randint(POPUP_DURATION_MIN, POPUP_DURATION_MAX));
     }
 
-    // 完全复刻批量生成逻辑
+    // 简化的随机工具函数（模拟Python的random）
+    const random = {
+        choice: (arr) => arr[Math.floor(Math.random() * arr.length)],
+        randint: (min, max) => Math.floor(Math.random() * (max - min + 1)) + min
+    };
+
+    // 批量调度弹窗（和原代码的after循环逻辑一致）
     for (let i = 0; i < POPUP_COUNT; i++) {
-        setTimeout(createPopup, i * GENERATE_INTERVAL);
+        setTimeout(create_popup, i * GENERATE_INTERVAL);
     }
 </script>
 </body>
