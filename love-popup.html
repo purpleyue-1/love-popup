@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>暖心祝福</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: #fff;
+            font-family: "微软雅黑", "黑体", sans-serif;
+        }
+        .popup {
+            position: absolute;
+            padding: 8px 12px;
+            border-radius: 8px;
+            color: #333;
+            text-align: center;
+            animation: fadeOut 10s linear forwards;
+            z-index: 9999;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        @keyframes fadeOut {
+            0% { opacity: 1; transform: scale(0.8); }
+            5% { opacity: 1; transform: scale(1); }
+            90% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(0.8); }
+        }
+    </style>
+</head>
+<body>
+<script>
+    // 暖心祝福语列表
+    const messages = [
+        "保持好心情",
+        "好好爱自己",
+        "期待下一次见面",
+        "你是我最想见的人",
+        "愿你万事顺意金榜题名",
+        "愿你被世界温柔以待",
+        "未来的小警察要加油哦",
+        "你值得所有的美好",
+        "你值得被偏爱与肯定",
+        "愿你永远笑得灿烂",
+        "放心大胆往前走，我一直在",
+        "遇见你是我最大的幸运"
+    ];
+
+    // 柔和背景色
+    const bgColors = ["#C3C7CE","#E2D8DB","#E5DCD2","#C2C9C0","#F0EEE9","#D6B9B3"];
+    const popupCount = 500; // 适配手机，减少数量更流畅
+    const generateInterval = 100;
+
+    // 创建单个弹窗
+    function createPopup() {
+        const popup = document.createElement('div');
+        popup.className = 'popup';
+        
+        // 随机选内容和样式
+        popup.textContent = messages[Math.floor(Math.random() * messages.length)];
+        popup.style.backgroundColor = bgColors[Math.floor(Math.random() * bgColors.length)];
+        popup.style.fontSize = (14 + Math.random() * 4) + 'px';
+
+        // 适配手机的尺寸和位置
+        const width = 120 + Math.random() * 40;
+        const height = 40 + Math.random() * 15;
+        const x = Math.random() * (window.innerWidth - width);
+        const y = Math.random() * (window.innerHeight - height);
+        
+        popup.style.width = width + 'px';
+        popup.style.height = height + 'px';
+        popup.style.left = x + 'px';
+        popup.style.top = y + 'px';
+
+        // 添加到页面
+        document.body.appendChild(popup);
+
+        // 随机消失
+        setTimeout(() => {
+            popup.remove();
+        }, 4000 + Math.random() * 6000);
+    }
+
+    // 批量生成弹窗
+    for (let i = 0; i < popupCount; i++) {
+        setTimeout(createPopup, i * generateInterval);
+    }
+</script>
+</body>
+</html>
